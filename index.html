@@ -168,24 +168,37 @@
     </div>
 
     <script>
-      
+        // Processamento da triagem de sintomas
 function processarTriagemIA(sintoma) {
     let sintomaNormalizado = sintoma.toLowerCase();
     let respostaBot = "";
 
-    // Ticket #102 - Regra de convênio
+    // Ticket #101 - Protocolo de emergência
     if (
+        sintomaNormalizado.includes("dor no peito") ||
+        sintomaNormalizado.includes("falta de ar")
+    ) {
+        respostaBot = "[EMERGÊNCIA VERMELHA] Dirija-se ao pronto-socorro. Valor: R$ 0,00";
+    }
+
+    // Ticket #102 - Regra de convênio
+    else if (
         sintomaNormalizado.includes("plano") ||
         sintomaNormalizado.includes("convenio") ||
+        sintomaNormalizado.includes("convênio") ||
         sintomaNormalizado.includes("unimed")
     ) {
         respostaBot = "[CONVÊNIO ACEITO] Encaminhado para rede credenciada. Copagamento: R$ 35,00";
-    } else {
+    }
+
+    // Triagem padrão
+    else {
         respostaBot = "[TRIAGEM PADRÃO] Encaminhado para consulta geral. Valor: R$ 150,00";
     }
 
     return respostaBot;
 }
+
 
 
         // Interface do chat
