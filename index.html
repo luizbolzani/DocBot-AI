@@ -168,16 +168,25 @@
     </div>
 
     <script>
-        // Processamento da triagem de sintomas
-        function processarTriagemIA(sintoma) {
-            let sintomaNormalizado = sintoma.toLowerCase();
-            let respostaBot = "";
+      
+function processarTriagemIA(sintoma) {
+    let sintomaNormalizado = sintoma.toLowerCase();
+    let respostaBot = "";
 
-            // Regra inicial de triagem
-            respostaBot = "[TRIAGEM PADRÃO] Encaminhado para consulta geral. Valor: R$ 150,00";
+    // Ticket #102 - Regra de convênio
+    if (
+        sintomaNormalizado.includes("plano") ||
+        sintomaNormalizado.includes("convenio") ||
+        sintomaNormalizado.includes("unimed")
+    ) {
+        respostaBot = "[CONVÊNIO ACEITO] Encaminhado para rede credenciada. Copagamento: R$ 35,00";
+    } else {
+        respostaBot = "[TRIAGEM PADRÃO] Encaminhado para consulta geral. Valor: R$ 150,00";
+    }
 
-            return respostaBot;
-        }
+    return respostaBot;
+}
+
 
         // Interface do chat
         function enviarMensagem() {
